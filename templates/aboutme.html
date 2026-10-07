@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan Hodovanets — Kuben VGS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --dark: #1e1c1f;
+      --purple-1: #8b2fc9;
+      --purple-2: #c044f0;
+      --circle-size: clamp(300px, 42vw, 580px);
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--dark);
+      font-family: 'Raleway', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── Pulsing orbs (fixed) ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulse 4s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, var(--purple-2) 0%, var(--purple-1) 50%, transparent 80%);
+      top: 10%; left: -180px;
+      animation-duration: 4.4s;
+    }
+    .orb-2 {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, var(--purple-2) 0%, var(--purple-1) 50%, transparent 80%);
+      bottom: 15%; right: -140px;
+      animation-duration: 3.8s; animation-delay: 1.6s;
+    }
+    .orb-3 {
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #a020d0 0%, #5a1080 50%, transparent 80%);
+      bottom: 0; left: 8%;
+      animation-duration: 5.2s; animation-delay: 0.8s;
+    }
+    @keyframes pulse {
+      0%   { opacity: 0.12; transform: scale(0.90); }
+      50%  { opacity: 0.58; transform: scale(1.07); }
+      100% { opacity: 0.14; transform: scale(0.94); }
+    }
+
+    /* ── Page layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 5vw 80px;
+    }
+
+    /* ── Header ── */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 28px 0 0;
+    }
+    .name-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 72px;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.85);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-color: rgba(255,255,255,0.5);
+      transition: color 0.3s, text-decoration-color 0.3s;
+      white-space: nowrap;
+    }
+    .name-link:hover { color: #fff; text-decoration-color: #fff; }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 52px;
+      padding: 40px 0 0;
+      width: 100%;
+    }
+
+    .circle-wrap {
+      position: relative;
+      width: var(--circle-size);
+      height: var(--circle-size);
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.42);
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition:
+        border-color 0.35s ease,
+        box-shadow 0.4s ease,
+        overflow 0s;
+    }
+    .circle-wrap:hover {
+      overflow: visible;
+      border-color: rgba(255,255,255,0.95);
+      box-shadow:
+        0 0 0 1.5px rgba(255,255,255,0.8),
+        0 0 80px rgba(255,255,255,0.14),
+        0 0 160px rgba(180,100,255,0.12);
+    }
+
+    .circle-wrap video,
+    .circle-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: transform 0.52s cubic-bezier(0.25, 1.3, 0.5, 1);
+    }
+    .circle-wrap:hover video,
+    .circle-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    /* placeholder */
+    .placeholder {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.32);
+      font-size: 13px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .placeholder svg { opacity: 0.4; }
+
+
+    .text-box {
+      width: min(680px, 90vw);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 36px 44px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .text-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 2.6vw, 34px);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+    }
+
+    .text-box p {
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.03em;
+    }
+
+    .text-box p + p { margin-top: 12px; }
+
+    /* Divider */
+    .text-box hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 22px 0;
+    }
+
+    /* grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @media (max-width: 560px) {
+      .circle-wrap:hover video,
+      .circle-wrap:hover img { transform: scale(1.9); }
+      .text-box { padding: 26px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="page">
+    <header>
+      <a class="name-link" href="/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ivan Hodovanets</a>
+    </header>
+
+    <div class="content">
+
+
+      <div class="text-box">
+        <h2>BIO</h2>
+        <hr />
+        <p>Hello! My name is Ivan, and I am 21 years old. I am studying to become a programmer and believe that this will be my calling in the future.
+
+I am studying and applying my knowledge in the field of web programming, as well as design and photo/video editing.</p>
+        <p>Contact info:</p>
+
+        <p>✈️ Telegram: @jhngdvnts</p>
+
+        <p>👾 Discord: mertofff</p>
+
+        <p>📱 Phone number: +4798765432</p>
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+</html>

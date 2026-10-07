@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Jinja</title>
+</head>
+<body>
+    <h1>Hei, {{ navn }}!</h1>
+
+    <h2>Elever i klassen:</h2>
+    <ul>
+        {% for elev in elever %}
+            <li>{{ elev }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
